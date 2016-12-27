@@ -2,11 +2,25 @@ version: '2'
 services: 
   bosun:
     image: stackexchange/bosun
+    extra_hosts:
+     - "kafka1:10.42.250.1"
+     - "kafka2:10.42.250.2"
+     - "kafka3:10.42.250.3"
     ports:
      - "8070:8070"
      - "4242:4242"
     volumes_from: 
      - bosun-conf
     labels: 
-      - "io.rancher.container.hostname_override=container_name"
-      - "io.rancher.sidekicks=bosun-conf"
+     - "io.rancher.container.hostname_override=container_name"
+     - "io.rancher.sidekicks=bosun-conf, fluentd"
+  bosun-conf:
+    image: ymian/monitor:bosun-conf
+    network_mode: "service:bosun"
+    labels: 
+     - "io.rancher.container.start_once=true"
+  fluentd:
+    image: ymian/monitor:fluentd
+    network_mode: "service:bosun"
+    labels: 
+     - "io.rancher.container.hostname_override=container_name"
