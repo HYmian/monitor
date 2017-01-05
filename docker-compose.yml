@@ -1,5 +1,28 @@
 version: '2'
 services: 
+  cadvisor:
+    image: google/cadvisor
+    ports:
+     - "9344:8080"
+    volumes:
+     - /:/rootfs:ro
+     - /var/run:/var/run
+     - /sys:/sys:ro
+     - /var/lib/docker/:/var/lib/docker:ro
+    labels: 
+     - "io.rancher.container.hostname_override=container_name"
+     - "io.rancher.scheduler.global=true"
+  scollector:
+    image: wise2c/scollector
+    net: host
+    command:
+     - -f
+     - cadvisor,cadvisor_host
+     - -h
+     - bosun:8070
+    labels: 
+     - "io.rancher.container.hostname_override=container_name"
+     - "io.rancher.scheduler.global=true"
   bosun:
     image: stackexchange/bosun
     links:
