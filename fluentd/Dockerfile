@@ -2,11 +2,11 @@ FROM centos:7
 
 MAINTAINER mian <huaxiang@wise2c.com>
 
-RUN yum install sudo gcc make ruby-devel mariadb-devel -y && \
+RUN yum install sudo gcc make mariadb-devel -y && \
     curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh && \
     td-agent-gem install fluent-plugin-sql --no-document && \
     td-agent-gem install mysql2 --no-document && \
-    yum remove gcc make ruby-devel mariadb-devel -y && \
+    yum remove gcc make mariadb-devel -y && \
     yum clean all
 
 COPY fluent-http.conf /etc/td-agent/td-agent-http.conf

@@ -14,7 +14,9 @@ services:
      - "io.rancher.scheduler.global=true"
   scollector:
     image: wise2c/scollector
-    net: host
+    network_mode: host
+    depends_on: 
+     - bosun
     command:
      - -f
      - cadvisor,cadvisor_host
@@ -23,6 +25,7 @@ services:
     labels: 
      - "io.rancher.container.hostname_override=container_name"
      - "io.rancher.scheduler.global=true"
+     - "io.rancher.container.dns=true"
   bosun:
     image: stackexchange/bosun
     links:
@@ -47,3 +50,11 @@ services:
      - "kafka3:10.42.250.3"
     labels: 
      - "io.rancher.container.hostname_override=container_name"
+  grafana:
+    image: grafana/grafana
+    ports:
+     - 3000:3000
+    labels:
+     - "io.rancher.container.hostname_override=container_name"
+    links:
+     - bosun
