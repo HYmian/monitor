@@ -1,0 +1,9 @@
+#ColDir = "./collectors"
+[[Cadvisor]]
+    URL = "http://127.0.0.1:9344"
+    PerCpuUsage = true
+    IsRemote = true
+    Labels = [
+      "io.rancher.stack.name",
+      "io.rancher.stack_service.name"
+    ]

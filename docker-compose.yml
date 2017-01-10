@@ -12,6 +12,7 @@ services:
     labels: 
      - "io.rancher.container.hostname_override=container_name"
      - "io.rancher.scheduler.global=true"
+     - "io.rancher.container.pull_image=always"
   scollector:
     image: wise2c/scollector
     network_mode: host
@@ -23,9 +24,9 @@ services:
      - -h
      - bosun:8070
     labels: 
-     - "io.rancher.container.hostname_override=container_name"
      - "io.rancher.scheduler.global=true"
      - "io.rancher.container.dns=true"
+     - "io.rancher.container.pull_image=always"
   bosun:
     image: stackexchange/bosun
     links:
@@ -38,10 +39,12 @@ services:
     labels: 
      - "io.rancher.container.hostname_override=container_name"
      - "io.rancher.sidekicks=bosun-conf"
+     - "io.rancher.container.pull_image=always"
   bosun-conf:
     image: ymian/monitor:bosun-conf
     labels: 
      - "io.rancher.container.start_once=true"
+     - "io.rancher.container.pull_image=always"
   fluentd:
     image: ymian/monitor:fluentd
     extra_hosts:
@@ -50,11 +53,18 @@ services:
      - "kafka3:10.42.250.3"
     labels: 
      - "io.rancher.container.hostname_override=container_name"
+     - "io.rancher.container.pull_image=always"
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:master
     ports:
      - 3000:3000
-    labels:
-     - "io.rancher.container.hostname_override=container_name"
     links:
      - bosun
+    labels:
+     - "io.rancher.container.hostname_override=container_name"
+     - "io.rancher.container.pull_image=always"
+  grafana-db:
+    image: ymian/grafana-db
+    labels: 
+     - "io.rancher.container.start_once=true"
+     - "io.rancher.container.pull_image=always"
