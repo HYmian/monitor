@@ -58,11 +58,14 @@ services:
     image: grafana/grafana:master
     ports:
      - 3000:3000
+    volumes_from: 
+     - grafana-db
     links:
      - bosun
     labels:
      - "io.rancher.container.hostname_override=container_name"
      - "io.rancher.container.pull_image=always"
+     - "io.rancher.sidekicks=grafana-db"
   grafana-db:
     image: ymian/grafana-db
     labels: 
