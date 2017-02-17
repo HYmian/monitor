@@ -28,7 +28,7 @@ services:
      - "io.rancher.container.dns=true"
      - "io.rancher.container.pull_image=always"
   bosun:
-    image: stackexchange/bosun
+    image: stackexchange/bosun:0.6.0-pre
     links:
      - fluentd:fluentd
     ports:
