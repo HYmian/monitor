@@ -29,8 +29,6 @@ services:
      - "io.rancher.container.pull_image=always"
   bosun:
     image: stackexchange/bosun:0.6.0-pre
-    links:
-     - fluentd:fluentd
     ports:
      - "8070:8070"
      - "4242:4242"
@@ -45,15 +43,11 @@ services:
     labels: 
      - "io.rancher.container.start_once=true"
      - "io.rancher.container.pull_image=always"
-  fluentd:
-    image: ymian/monitor:fluentd
-    extra_hosts:
-     - "kafka1:10.42.250.1"
-     - "kafka2:10.42.250.2"
-     - "kafka3:10.42.250.3"
-    labels: 
-     - "io.rancher.container.hostname_override=container_name"
-     - "io.rancher.container.pull_image=always"
+  # fluentd:
+  #   image: ymian/monitor:fluentd
+  #   labels: 
+  #    - "io.rancher.container.hostname_override=container_name"
+  #    - "io.rancher.container.pull_image=always"
   grafana:
     image: grafana/grafana:master
     ports:
