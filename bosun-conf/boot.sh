@@ -13,7 +13,7 @@ name=`wget -qO- http://rancher-metadata/latest/self/container/name`
 cat /data/request.tmpl | sed \
     -e "s/@ID@/${id}/g" \
     -e "s/@Name@/${name}/g" \
-    -e "s/@IP@/${ip}/g"
+    -e "s/@IP@/${ip}/g" \
   > ./request
 
 curl -X PUT --data-binary @request http://consul:8500/v1/agent/service/register
