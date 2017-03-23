@@ -3,7 +3,7 @@
 # service=`wget -qO- http://rancher-metadata/latest/self/container/service_name`
 id=`wget -qO- http://rancher-metadata/latest/self/container/service_index`
 # uuid=`wget -qO- http://rancher-metadata/latest/self/container/uuid`
-ip=`wget -qO- http://rancher-metadata/latest/self/container/ips/0`
+ip=`wget -qO- http://rancher-metadata/latest/self/host/agent_ip`
 name=`wget -qO- http://rancher-metadata/latest/self/container/name`
 # port=`wget -qO- http://rancher-metadata/latest/self/container/ports/0`
 

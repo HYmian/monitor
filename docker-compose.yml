@@ -14,8 +14,11 @@ services:
      - "io.rancher.scheduler.global=true"
      - "io.rancher.container.pull_image=always"
   scollector:
-    image: wise2c/scollector
+    image: wise2c/scollector:1.1-pre
     network_mode: host
+    environment: 
+     - "ENVIRONMENT=default"
+     - "TENANT=mian"
     depends_on: 
      - bosun
     command:
