@@ -10,7 +10,7 @@ CheckFrequency = "1m"
 DefaultRunEvery = 5
 
 # Path to the rule file (file that contains definitions for alerts, macros, lookups, templates, and notifications)
-RuleFilePath = "/data/bosunrules.conf"
+RuleFilePath = "/opt/bosun/monitor/bosun-conf/bosunrules.conf"
 
 # timeanddate.com zones (only for use in the UI)
 TimeAndDate = [ 202, 75, 179, 136 ]
@@ -31,7 +31,7 @@ Ping = false
 PingDuration = "24h"
 
 # How long certain items and metrics should be displayed in the UI if we haven't seen them. Default 3 days
-SearchSince = "72h"
+SearchSince = "24h"
 
 # Enable saving API endpoints and the ability to save the config via the UI. Default is false
 EnableSave   = true
@@ -43,9 +43,9 @@ EnableReload = true
 
 # Configuration to enable the OpenTSDB Backend
 [OpenTSDBConf]
-	Host = "localhost:4242"
+	Host = "www.langerma.org:4242"
 	# Default is 2.1, certain features like filters are enabled when the version is set to 2.2
-	Version = 2.2
+	Version = 2.3
 	# ResponseLimit will make requests error if the response from opentsdb is larger than this setting in bytes. Default of 1MB
 	ResponseLimit = 25000000
 
@@ -56,8 +56,8 @@ EnableReload = true
 #		X-Meow = "Mix"
 
 # Configuration of hosts to enable the Elastic backend
-#[ElasticConf]
-#	Hosts = ["http://ny-lselastic01.example.com:9200", "http://ny-lselastic02.example.com:9200"]
+[ElasticConf]
+	Hosts = ["http://www.langerma.org:9200"]
 
 # Configuration for embedding the annotate service (also enables annotations if hosts are defined)
 #[AnnotateConf]
@@ -69,13 +69,14 @@ EnableReload = true
 # for production setups. Defaults for ledis are below but would be ignored since redis takes
 # precedence
 [DBConf]
-	LedisDir = "/data/ledis_data"
-	LedisBindAddr = "0.0.0.0:9565"	
+#	LedisDir = "/data/ledis_data"
+#	LedisBindAddr = "0.0.0.0:9565"	
+    redisHost = "localhost:6379"
 
 # Configuration to enable Bosun to be able to send email notifications
-#[SMTPConf]
-#	EmailFrom = "bosun@example.com"
-#	Host = "mail.example.com"
+[SMTPConf]
+	EmailFrom = "langer.markus@gmail.com"
+	Host = "localhost"
 
 # Configuration to enable the InfluxDB backend
 #[InfluxConf]
