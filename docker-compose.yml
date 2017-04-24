@@ -34,7 +34,6 @@ services:
     image: stackexchange/bosun:0.6.0-pre
     ports:
      - "8070:8070"
-     - "4242:4242"
     volumes_from: 
      - bosun-conf
     labels: 
