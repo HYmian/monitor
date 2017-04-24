@@ -39,13 +39,13 @@ EnableReload = true
 
 # Path to a command that will be executed on save of the rule configuration. This command is passed a filename, username, message, and vargs
 # If the command does not execute save operations will be canceled and the rule file will be restored
-#CommandHookPath = "/Users/kbrandt/src/hook/hook"
+CommandHookPath = "/opt/bosun/commit.sh"
 
 # Configuration to enable the OpenTSDB Backend
 [OpenTSDBConf]
 	Host = "www.langerma.org:4242"
 #	# Default is 2.1, certain features like filters are enabled when the version is set to 2.2
-	Version = 2.3
+	Version = 2.2
 #	# ResponseLimit will make requests error if the response from opentsdb is larger than this setting in bytes. Default of 1MB
 	ResponseLimit = 25000000
 
@@ -70,7 +70,7 @@ EnableReload = true
 [AnnotateConf]
     Hosts = ["http://5.9.143.166:9200"]
 #    # Set the Index name that annotations are stored in. Default is annotate
-    Index = "annotate"
+#    Index = "annotate"
 
 # Configuration for Bosun's internal storage. Can be Ledis (Default) or Redis. Redis is recommended
 # for production setups. Defaults for ledis are below but would be ignored since redis takes
