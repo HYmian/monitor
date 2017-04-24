@@ -39,7 +39,7 @@ EnableReload = true
 
 # Path to a command that will be executed on save of the rule configuration. This command is passed a filename, username, message, and vargs
 # If the command does not execute save operations will be canceled and the rule file will be restored
-CommandHookPath = "/opt/bosun/commit.sh"
+CommandHookPath = "/opt/bosun/monitor/bosun-conf/commit.sh"
 
 # Configuration to enable the OpenTSDB Backend
 [OpenTSDBConf]
