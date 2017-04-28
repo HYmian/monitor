@@ -2,7 +2,7 @@
 #Hostname = "bosun.langerma.org"
 
 # The HTTP IP and Port to Listen on. Default is ":8070"
-#HTTPListen = ":8080"
+HTTPListen = ":8070"
 
 # Alert checks are run by default every CheckFrequency * DefaultRunEvery. RunEvery can be overridden
 # by indivdual alerts. Defaults are "5m" and 1

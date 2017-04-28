@@ -8,4 +8,4 @@
 #echo $2 >> /tmp/args.txt
 #echo $3 >> /tmp/args.txt
 
-cd /opt/bosun/monitor/bosun-conf && /usr/local/bin/git commit -am "$2 : $3"
+cd /opt/bosun/monitor/bosun-conf && /usr/local/bin/git commit -am "$2 : $3" && git push https://langerma:didPWD2010#@github.com/langerma/monitor.git --all
