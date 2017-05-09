@@ -1,13 +1,9 @@
-FROM busybox
+FROM busybox:latest
 
 MAINTAINER mian <gopher.mian@outlook.com>
 
-COPY bosun.conf /data/
 COPY bosunrules.conf /data/
 COPY bosun.toml /data/
-COPY scollector.toml /data/
-COPY boot.sh /data/
-COPY request.tmpl /data/
 
 VOLUME /data
 
