@@ -1,70 +1,100 @@
 version: '2'
-services: 
-  cadvisor:
-    image: google/cadvisor
-    ports:
-     - "9344:8080"
-    volumes:
-     - /:/rootfs:ro
-     - /var/run:/var/run
-     - /sys:/sys:ro
-     - /var/lib/docker/:/var/lib/docker:ro
-    labels: 
-     - "io.rancher.container.hostname_override=container_name"
-     - "io.rancher.scheduler.global=true"
-     - "io.rancher.container.pull_image=always"
-  scollector:
-    image: wise2c/scollector:1.1-pre
+services:
+  rancher-scollector:
+    image: registry.cn-shenzhen.aliyuncs.com/mian/scollector:1.0
+    environment:
+      ENVIRONMENT: default
+      TENANT: mian
     network_mode: host
-    environment: 
-     - "ENVIRONMENT=default"
-     - "TENANT=mian"
-    depends_on: 
-     - bosun
     command:
-     - -f
-     - cadvisor,cadvisor_host
-     - -h
-     - bosun:8070
-    labels: 
-     - "io.rancher.scheduler.global=true"
-     - "io.rancher.container.dns=true"
-     - "io.rancher.container.pull_image=always"
+    - -f
+    - rancher
+    - -h
+    - bosun:8070
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.dns: 'true'
+      io.rancher.container.create_agent: 'true'
+      io.rancher.container.pull_image: always
+  bosun-conf:
+    image: ymian/bosun-conf:1.0.0-beta
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.start_once: 'true'
   bosun:
     image: stackexchange/bosun:0.6.0-pre
+    environment:
+      TZ: Asia/Shanghai
+    volumes_from:
+    - bosun-conf
     ports:
-     - "8070:8070"
-     - "4242:4242"
-    volumes_from: 
-     - bosun-conf
-    labels: 
-     - "io.rancher.container.hostname_override=container_name"
-     - "io.rancher.sidekicks=bosun-conf"
-     - "io.rancher.container.pull_image=always"
-  bosun-conf:
-    image: ymian/monitor:bosun-conf
-    labels: 
-     - "io.rancher.container.start_once=true"
-     - "io.rancher.container.pull_image=always"
-  # fluentd:
-  #   image: ymian/monitor:fluentd
-  #   labels: 
-  #    - "io.rancher.container.hostname_override=container_name"
-  #    - "io.rancher.container.pull_image=always"
-  grafana:
-    image: grafana/grafana:master
-    ports:
-     - 3000:3000
-    volumes_from: 
-     - grafana-db
-    links:
-     - bosun
+    - 8070:8070/tcp
+    command:
+    - /bosun/bosun
+    - -c
+    - /data/bosun.toml
     labels:
-     - "io.rancher.container.hostname_override=container_name"
-     - "io.rancher.container.pull_image=always"
-     - "io.rancher.sidekicks=grafana-db"
-  grafana-db:
-    image: ymian/grafana-db
-    labels: 
-     - "io.rancher.container.start_once=true"
-     - "io.rancher.container.pull_image=always"
+      io.rancher.sidekicks: bosun-conf
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  opentsdb-conf:
+    image: ymian/opentsdb-conf:latest
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.start_once: 'true'
+  cadvisor:
+    image: google/cadvisor
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+    - 9344:8080/tcp
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+  scollector:
+    image: registry.cn-shenzhen.aliyuncs.com/mian/scollector:1.0
+    environment:
+      ENVIRONMENT: default
+      TENANT: mian
+      ROOT_FS: /rootfs
+    network_mode: host
+    volumes:
+    - /:/rootfs:ro
+    - /sys:/sys:ro
+    command:
+    - -f
+    - cadvisor,cadvisor_host,host_disk
+    - -h
+    - bosun:8070
+    labels:
+      io.rancher.container.dns: 'true'
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+  opentsdb:
+    image: stackexchange/bosun:0.6.0-pre
+    environment:
+      TZ: Asia/Shanghai
+      JVMARGS: -Xmx4096M -Xms4096M
+    volumes_from:
+    - opentsdb-conf
+    ports:
+    - 4242:4242/tcp
+    command:
+    - bash
+    - /wise2c/boot.sh
+    labels:
+      io.rancher.sidekicks: opentsdb-conf
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  redis:
+    image: redis:3.2
+    stdin_open: true
+    tty: true
+    ports:
+    - 6379:6379/tcp
+    labels:
+      io.rancher.container.pull_image: always
