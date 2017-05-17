@@ -1,7 +1,5 @@
-FROM stackexchange/bosun:0.6.0-pre
+FROM centos:7
 
 MAINTAINER mian <gopher.mian@outlook.com>
 
-RUN apt-get update && apt-get install -y \
-	curl & \
-	echo Asia/Shanghai > /etc/timezone
+RUN wget https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64
