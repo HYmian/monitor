@@ -1,0 +1,10 @@
+[template]
+src = "bosun.toml.tmpl"
+dest = "/data/bosun.toml"
+keys = [
+    "system/mail/smtp_username",
+    "system/mail/default_mail_suffix",
+    "system/mail/smtp_server",
+    "system/mail/smtp_password",
+]
+reload_cmd = "curl -X POST -d '{ "Reload": true }' http://consul:8070/api/reload"
