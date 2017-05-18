@@ -7,4 +7,4 @@ keys = [
     "system/mail/smtp_server",
     "system/mail/smtp_password",
 ]
-reload_cmd = "curl -X POST -d '{ "Reload": true }' http://consul:8070/api/reload"
+reload_cmd = "curl -X POST -d '{ \"Reload\": true }' http://consul:8070/api/reload"
