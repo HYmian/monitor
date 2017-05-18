@@ -75,7 +75,7 @@ EnableReload = true
 
 # Configuration to enable Bosun to be able to send email notifications
 [SMTPConf]
-	EmailFrom = "{{getv "/system/mail/smtp_username1"}}{{getv "/system/mail/default_mail_suffix"}}"
+	EmailFrom = "{{getv "/system/mail/smtp_username"}}{{getv "/system/mail/default_mail_suffix"}}"
 	Host = "{{getv "/system/mail/smtp_server"}}"
 	Username = "{{getv "/system/mail/smtp_username"}}"
 	Password = "{{getv "/system/mail/smtp_password"}}"

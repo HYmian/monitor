@@ -1,5 +1,5 @@
 [template]
-src = "bosun.toml.tmpl"
+src = "bosun.toml.gotmpl"
 dest = "/data/bosun.toml"
 keys = [
     "system/mail/smtp_username",
