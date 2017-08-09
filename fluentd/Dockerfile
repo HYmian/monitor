@@ -12,6 +12,4 @@ RUN apk add --update --virtual .build-deps \
  && rm -rf /var/cache/apk/* \
            /home/fluent/.gem/ruby/2.3.0/cache/*.gem
 
-ENTRYPOINT ["fluentd"]
-
-CMD -c /fluentd/etc/${FLUENTD_CONF} -p /fluentd/plugins $FLUENTD_OPT
+ENTRYPOINT ["fluentd", "-c", "/fluentd/etc/${FLUENTD_CONF}", "-p", "/fluentd/plugins", "$FLUENTD_OPT"]
