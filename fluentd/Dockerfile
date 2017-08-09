@@ -1,16 +1,13 @@
-FROM centos:7
+FROM fluent/fluentd:v0.12-onbuild
 
-MAINTAINER mian <huaxiang@wise2c.com>
+# below RUN includes plugin as examples elasticsearch is not required
+# you may customize including plugins as you wish
 
-RUN yum install sudo gcc make mariadb-devel -y && \
-    curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh && \
-    td-agent-gem install fluent-plugin-sql --no-document && \
-    td-agent-gem install fluent-plugin-elasticsearch --no-document && \
-    yum remove gcc mariadb-devel -y && \
-    yum clean all
-
-ENV FLUENTD_CONF fluent.conf
-
-ENTRYPOINT td-agent
-
-CMD ["-c" "/etc/td-agent/fluent.conf"]
+RUN apk add --update --virtual .build-deps \
+        sudo build-base ruby-dev \
+ && sudo gem install \
+        fluent-plugin-elasticsearch \
+ && sudo gem sources --clear-all \
+ && apk del .build-deps \
+ && rm -rf /var/cache/apk/* \
+           /home/fluent/.gem/ruby/2.3.0/cache/*.gem
