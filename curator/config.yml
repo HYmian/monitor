@@ -5,5 +5,5 @@ client:
   timeout: 30
 
 logging:
-  loglevel: INFO
+  loglevel: ${LOG_LEVEL:INFO}
   logformat: default

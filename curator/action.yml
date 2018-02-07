@@ -9,8 +9,8 @@ actions:
   1:
     action: delete_indices
     description: >-
-      Delete indices older than 7 days (based on index name), for host-
-      prefixed indices. Ignore the error if the filter does not result in an
+      Delete indices for host- prefixed indices. 
+      Ignore the error if the filter does not result in an
       actionable list of indices (ignore_empty_list) and exit cleanly.
     options:
       ignore_empty_list: True
@@ -28,8 +28,8 @@ actions:
   2:
     action: delete_indices
     description: >-
-      Delete indices older than 7 days (based on index name), for kubernetes-
-      prefixed indices. Ignore the error if the filter does not result in an
+      Delete indices for kubernetes- prefixed indices. 
+      Ignore the error if the filter does not result in an
       actionable list of indices (ignore_empty_list) and exit cleanly.
     options:
       ignore_empty_list: True
@@ -47,8 +47,8 @@ actions:
   3:
     action: delete_indices
     description: >-
-      Delete indices older than 7 days (based on index name), for wisecloud-
-      prefixed indices. Ignore the error if the filter does not result in an
+      Delete indices for wisecloud- prefixed indices. 
+      Ignore the error if the filter does not result in an
       actionable list of indices (ignore_empty_list) and exit cleanly.
     options:
       ignore_empty_list: True
@@ -66,8 +66,8 @@ actions:
   4:
     action: delete_indices
     description: >-
-      Delete indices older than 7 days (based on index name), for wisecloud-
-      prefixed indices. Ignore the error if the filter does not result in an
+      Delete indices for wisecloud-prefixed indices. 
+      Ignore the error if the filter does not result in an
       actionable list of indices (ignore_empty_list) and exit cleanly.
     options:
       ignore_empty_list: True
