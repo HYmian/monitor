@@ -3,8 +3,9 @@ kind: CronJob
 metadata:
   name: curator
 spec:
-  successfulJobsHistoryLimit: 1
+  concurrencyPolicy: Replace
   failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 1
   schedule: "@daily"
   jobTemplate:
     spec:
