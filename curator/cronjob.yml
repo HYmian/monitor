@@ -6,6 +6,7 @@ spec:
   concurrencyPolicy: Replace
   failedJobsHistoryLimit: 3
   successfulJobsHistoryLimit: 1
+  startingDeadlineSeconds: 60
   schedule: "@daily"
   jobTemplate:
     spec:
