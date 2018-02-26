@@ -8,7 +8,7 @@ RUN apk add --update --virtual .build-deps \
                                 build-base \
                                 ruby-dev \
                                 tzdata \
-    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && sudo gem install fluent-plugin-elasticsearch \
     && sudo gem sources --clear-all \
     && apk del .build-deps \
